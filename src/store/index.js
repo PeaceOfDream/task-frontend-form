@@ -1,9 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import schemaReducer from './schemaSlice'
-
+import { configureStore } from '@reduxjs/toolkit';
+import schemaReducer from './schemaSlice';
 
 export default configureStore({
   reducer: {
-    schemaReducer
+    schemaReducer,
   },
 });

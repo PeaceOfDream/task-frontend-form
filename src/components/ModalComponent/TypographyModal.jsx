@@ -1,7 +1,7 @@
 import { Typography } from '@mui/material';
-import React from 'react'
+import React from 'react';
 
-export const TypographyModal = ({label, field}) => {
+export const TypographyModal = ({ label, field }) => {
   return (
     <>
       <Typography level="h2" component="h3">
@@ -12,4 +12,4 @@ export const TypographyModal = ({label, field}) => {
       </Typography>
     </>
   );
-}
+};

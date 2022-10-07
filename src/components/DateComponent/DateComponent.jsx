@@ -1,32 +1,31 @@
 import { FormHelperText, TextField } from '@mui/material';
 import { LocalizationProvider, MobileDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import React from 'react'
+import React from 'react';
 import { Controller, useController } from 'react-hook-form';
 
-export const DateComponent = ({control, name, label, rules}) => {
-  	  const {
-        formState: { errors },
-      } = useController({
-        name,
-        control,
-        rules: rules,
-      });
-	return (
+export const DateComponent = ({ control, name, label, rules, inputFormat }) => {
+  const {
+    formState: { errors },
+  } = useController({
+    name,
+    control,
+    rules: rules,
+  });
+  return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <Controller
           name={name}
           control={control}
           rules={rules}
-          render={({ field: { ref, ...rest } }) => (
+          render={({ field }) => (
             <MobileDatePicker
               margin="normal"
-              id={name}
               label={label}
-              inputFormat="DD/MM/YYYY"
+              inputFormat={inputFormat}
               renderInput={(params) => <TextField {...params} />}
-              {...rest}
+              {...field}
             />
           )}
         />
@@ -36,4 +35,4 @@ export const DateComponent = ({control, name, label, rules}) => {
       </FormHelperText>
     </>
   );
-}
+};

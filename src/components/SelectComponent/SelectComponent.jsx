@@ -1,8 +1,8 @@
-import { FormHelperText, InputLabel, MenuItem, Select, } from '@mui/material';
+import { FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import React from 'react';
 import { Controller, useController } from 'react-hook-form';
 
-export const SelectComponent = ({ control, rules, name, label, options=[] }) => {
+export const SelectComponent = ({ control, rules, name, label, options = [] }) => {
   const {
     formState: { errors },
   } = useController({
@@ -16,7 +16,7 @@ export const SelectComponent = ({ control, rules, name, label, options=[] }) => 
       <Controller
         rules={rules}
         render={({ field }) => (
-          <Select labelId="ocean" {...field}>
+          <Select {...field}>
             {options.map((item) => (
               <MenuItem key={item} value={item}>
                 {item}
@@ -33,5 +33,3 @@ export const SelectComponent = ({ control, rules, name, label, options=[] }) => 
     </>
   );
 };
-
-

@@ -1,25 +1,24 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { addPersonalData, switchForm, switchModal } from '../../store/schemaSlice';
-import { FormTitle } from '../UI/FormTitle/FormTitle';
-import { FormContainer } from '../UI/FormContainer/FormContainer';
-import { PrimaryButton } from '../UI/PrimaryButton/PrimaryButton';
-import { FormComponent } from '../UI/Form/FormComponent';
-import { InputComponent } from '../UI/InputComponent/InputComponent';
+import { addPersonalData, switchForm, switchModal } from '../../../store/schemaSlice';
+import { FormTitle } from '../../UI/FormTitle/FormTitle';
+import { FormContainer } from '../../UI/FormContainer/FormContainer';
+import { PrimaryButton } from '../../UI/PrimaryButton/PrimaryButton';
+import { FormComponent } from '../../UI/Form/FormComponent';
+import { InputComponent } from '../../UI/InputComponent/InputComponent';
 import { Button } from '@mui/material';
-import { ModalComponent } from '../ModalComponent/ModalComponent';
+import { ModalComponent } from '../../ModalComponent/ModalComponent';
 import dayjs from 'dayjs';
-import { CheckboxComponent } from '../CheckboxComponent/CheckboxComponent';
-import { DateComponent } from '../DateComponent/DateComponent';
-import { RadioComponent } from '../RadioComponent/RadioComponent';
-import { SelectComponent } from '../SelectComponent/SelectComponent';
+import { CheckboxComponent } from '../../CheckboxComponent/CheckboxComponent';
+import { DateComponent } from '../../DateComponent/DateComponent';
+import { RadioComponent } from '../../RadioComponent/RadioComponent';
+import { SelectComponent } from '../../SelectComponent/SelectComponent';
 
 export const PersonalInfo = () => {
-  const stateSchema = useSelector((state) => state.schemaReducer.schema);
+  const {firstName, lastName, sex, birthday, ocean, hobby} = useSelector((state) => state.schemaReducer.schema);
   const stateData = useSelector((state) => state.schemaReducer.data);
   const dispatch = useDispatch();
-
   const {
     register,
     handleSubmit,
@@ -38,13 +37,13 @@ export const PersonalInfo = () => {
   });
 
   const changeInfo = (data) => {
-    data.birthday = dayjs(data.birthday).format('DD-MM-YYYY');
+    data.birthday = dayjs(data.birthday).format();
     dispatch(addPersonalData(data));
     dispatch(switchForm());
   };
 
   const onSubmit = (data) => {
-    data.birthday = dayjs(data.birthday).format('DD-MM-YYYY');
+    data.birthday = dayjs(data.birthday).format();
     dispatch(addPersonalData(data));
     dispatch(switchModal(true));
   };
@@ -52,10 +51,10 @@ export const PersonalInfo = () => {
   const ageValidate = (value) => {
     const age = new Date().getFullYear() - new Date(value).getFullYear();
 
-    if (age > +stateSchema?.birthday?.maxAge) {
-      return `Maximum ${stateSchema?.birthday?.maxAge} age`;
-    } else if (age < +stateSchema?.birthday?.minAge) {
-      return `Minimum ${stateSchema?.birthday?.minAge} age`;
+    if (age > +birthday.maxAge) {
+      return `Maximum ${birthday.maxAge} age`;
+    } else if (age < +birthday.minAge) {
+      return `Minimum ${birthday.minAge} age`;
     }
   };
 
@@ -65,17 +64,16 @@ export const PersonalInfo = () => {
       <FormComponent onSubmit={handleSubmit(onSubmit)}>
         <InputComponent
           {...register('firstName', {
-            required: { value: stateSchema?.firstName?.required, message: 'Required field' },
+            required: { value: firstName.required, message: 'Required field' },
             minLength: {
-              value: stateSchema?.firstName?.minLength,
-              message: `Minimum ${stateSchema?.firstName?.minLength} letters`,
+              value: firstName.minLength,
+              message: `Minimum ${firstName.minLength} letters`,
             },
             maxLength: {
-              value: stateSchema?.firstName?.maxLength,
-              message: `Maximum ${stateSchema?.firstName?.maxLength} letters`,
+              value: firstName.maxLength,
+              message: `Maximum ${firstName.maxLength} letters`,
             },
           })}
-          id="firstName"
           type="text"
           label="First Name"
           name="firstName"
@@ -85,17 +83,16 @@ export const PersonalInfo = () => {
 
         <InputComponent
           {...register('lastName', {
-            required: { value: stateSchema?.lastName?.required, message: 'Required field' },
+            required: { value: lastName.required, message: 'Required field' },
             minLength: {
-              value: stateSchema?.lastName?.minLength,
-              message: `Minimum ${stateSchema?.lastName?.minLength} letters`,
+              value: lastName.minLength,
+              message: `Minimum ${lastName.minLength} letters`,
             },
             maxLength: {
-              value: stateSchema?.lastName?.maxLength,
-              message: `Maximum ${stateSchema?.lastName?.maxLength} letters`,
+              value: lastName.maxLength,
+              message: `Maximum ${lastName.maxLength} letters`,
             },
           })}
-          id="lastName"
           type="text"
           label="Last Name"
           name="lastName"
@@ -106,7 +103,7 @@ export const PersonalInfo = () => {
         <RadioComponent
           control={control}
           rules={{
-            required: { value: stateSchema?.sex?.required, message: 'Required field' },
+            required: { value: sex.required, message: 'Required field' },
           }}
           name="sex"
           label="Sex"
@@ -116,9 +113,10 @@ export const PersonalInfo = () => {
           control={control}
           name="birthday"
           label="Birthday"
+          inputFormat="DD/MM/YYYY"
           rules={{
             required: {
-              value: stateSchema?.birthday?.required,
+              value: birthday.required,
               message: 'Required field',
             },
             validate: {
@@ -132,9 +130,9 @@ export const PersonalInfo = () => {
           name="ocean"
           label="Ocean"
           rules={{
-            required: { value: stateSchema?.ocean?.required, message: 'Required field' },
+            required: { value: ocean.required, message: 'Required field' },
           }}
-          options={stateSchema?.ocean?.oneOf}
+          options={ocean.oneOf}
         />
 
         <CheckboxComponent
@@ -142,9 +140,9 @@ export const PersonalInfo = () => {
           label="Hobby"
           name="hobby"
           rules={{
-            required: { value: stateSchema?.ocean?.required, message: 'Required field' },
+            required: { value: hobby.required, message: 'Required field' },
           }}
-          options={stateSchema?.hobby?.anyOf}
+          options={hobby.anyOf}
           row
         />
 

@@ -9,9 +9,6 @@ import {
 } from '@mui/material';
 import { useWatch, useController } from 'react-hook-form';
 
-
-
-
 export const CheckboxComponent = ({ control, rules, label, name, options = [], row, ...rest }) => {
   const {
     field: { ref, value, onChange, ...inputProps },
@@ -22,7 +19,6 @@ export const CheckboxComponent = ({ control, rules, label, name, options = [], r
     defaultValue: [],
     rules: rules,
   });
-
 
   const checkboxIds = useWatch({ control, name: name }) || [];
 
@@ -70,7 +66,3 @@ export const CheckboxComponent = ({ control, rules, label, name, options = [], r
     </>
   );
 };
-
-
-
-

@@ -1,24 +1,21 @@
 import './App.css';
-import { useEffect } from 'react';
 import { MainBreadcrumbs } from './components/Breadcrumbs/Breadcrumbs';
 import { Footer } from './components/Footer/Footer';
 import { Header } from './components/Header/Header';
-import {Form} from './components/Form/Form'
-import { useDispatch } from 'react-redux';
-import { fetchSchema } from './store/schemaSlice';
+
+import { Provider } from 'react-redux';
+import store from './store';
+import { FormLayout } from './components/Form/FormLayout/FormLayout';
 
 function App() {
-  const dispatch = useDispatch();
-	useEffect(() => {
-    dispatch(fetchSchema());
-  }, [dispatch]);
-
   return (
     <div className="App">
-      <Header />
-      <MainBreadcrumbs />
-      <Form />
-      <Footer />
+      <Provider store={store}>
+        <Header />
+        <MainBreadcrumbs />
+        <FormLayout />
+        <Footer />
+      </Provider>
     </div>
   );
 }

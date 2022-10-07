@@ -1,22 +1,22 @@
 import { FormControlLabel, FormHelperText, InputLabel, Radio, RadioGroup } from '@mui/material';
-import React from 'react'
+import React from 'react';
 import { Controller, useController } from 'react-hook-form';
 
-export const RadioComponent = ({control, rules,  name, label}) => {
-	  const {
-      formState: { errors },
-    } = useController({
-      name,
-      control,
-      rules: rules,
-    });
+export const RadioComponent = ({ control, rules, name, label }) => {
+  const {
+    formState: { errors },
+  } = useController({
+    name,
+    control,
+    rules: rules,
+  });
   return (
     <>
       <InputLabel component="legend">{label}</InputLabel>
       <Controller
         control={control}
         rules={rules}
-		  name={name}
+        name={name}
         render={({ field }) => (
           <RadioGroup aria-label="gender" {...field}>
             <FormControlLabel value="female" control={<Radio />} label="Female" />
@@ -29,4 +29,4 @@ export const RadioComponent = ({control, rules,  name, label}) => {
       </FormHelperText>
     </>
   );
-}
+};

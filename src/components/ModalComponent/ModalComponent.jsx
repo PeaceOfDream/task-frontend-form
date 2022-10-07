@@ -21,30 +21,27 @@ const style = {
 };
 
 export const ModalComponent = () => {
-	const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const { openModal } = useSelector((state) => state.schemaReducer);
   const handleClose = () => dispatch(switchModal(false));
-
-
-	const formData = useSelector((state) => state.schemaReducer.data);
-	const birthdayDate = dayjs(formData.birthday).format('DD-MM-YYYY');
-	const hobbyData = formData.hobby.join(', ')
+  const formData = useSelector((state) => state.schemaReducer.data);
+  const birthdayDate = dayjs(formData.birthday).format('DD/MM/YYYY');
+  const hobbyData = formData.hobby.join(', ');
   return (
-    
-      <Modal open={openModal} onClose={handleClose}>
-        <Box sx={style}>
-          <FormTitle sx={{ mb: 2 }}>Form</FormTitle>
-          <TypographyModal field={formData.mobilePhone} label="Mobile phone" />
-          <TypographyModal field={formData.email} label="Email " />
-          <TypographyModal field={formData.password} label="Password" />
-          <TypographyModal field={formData.repeatPassword} label="Repeat Password" />
-          <TypographyModal field={formData.firstName} label="First Name" />
-          <TypographyModal field={formData.lastName} label="Last Name" />
-          <TypographyModal field={formData.sex} label="Sex" />
-          <TypographyModal field={birthdayDate} label="Birthday" />
-          <TypographyModal field={formData.ocean} label="Ocean" />
-          <TypographyModal field={hobbyData} label="Hobby" />
-        </Box>
-      </Modal>
+    <Modal open={openModal} onClose={handleClose}>
+      <Box sx={style}>
+        <FormTitle sx={{ mb: 2 }}>Form</FormTitle>
+        <TypographyModal field={formData.mobilePhone} label="Mobile phone" />
+        <TypographyModal field={formData.email} label="Email " />
+        <TypographyModal field={formData.password} label="Password" />
+        <TypographyModal field={formData.repeatPassword} label="Repeat Password" />
+        <TypographyModal field={formData.firstName} label="First Name" />
+        <TypographyModal field={formData.lastName} label="Last Name" />
+        <TypographyModal field={formData.sex} label="Sex" />
+        <TypographyModal field={birthdayDate} label="Birthday" />
+        <TypographyModal field={formData.ocean} label="Ocean" />
+        <TypographyModal field={hobbyData} label="Hobby" />
+      </Box>
+    </Modal>
   );
-}
+};

@@ -1,11 +1,10 @@
-import { Button } from '@mui/material'
-import React from 'react'
-import style from './PrimaryButton.module.css'
+import { Button } from '@mui/material';
+import React from 'react';
 
-export const PrimaryButton = ({children, ...props}) => {
+export const PrimaryButton = ({ children, ...props }) => {
   return (
-	 <Button className={style.button} type='submit' fullWidth variant='contained'  {...props} >
-		{children}
-	 </Button>
-  )
-}
+    <Button type="submit" fullWidth variant="contained" {...props}>
+      {children}
+    </Button>
+  );
+};
